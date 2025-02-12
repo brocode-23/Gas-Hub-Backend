@@ -174,6 +174,8 @@ const requestService = {
 
   async updateRequestStatus(requestId, status, user) {
     const transaction = await sequelize.transaction();
+    console.log('-------------------------------------------------------------');
+    console.log(status);
     try {
       const request = await Request.findByPk(requestId);
 

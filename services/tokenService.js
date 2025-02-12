@@ -106,7 +106,15 @@ const tokenService = {
 
       const toEmail = request.toemail;
 
-      if (status) token.status = status;
+      console.log('equalll...');
+      if (status) {
+        if(status=='rejected'){
+          console.log('equalll...');
+          status = 'Cancelled'
+        }else{
+        token.status = status;
+        }
+      }
       if (expiration_date) {
         token.expiration_date = expiration_date;
         token.expected_pickup_date = new Date(
@@ -123,7 +131,14 @@ const tokenService = {
 
       return token;
     } else {
-      if (status) token.status = status;
+      if (status) {
+        if(status=='rejected'){
+          console.log('equalll...');
+          token.status = 'Cancelled'
+        }else{
+          token.status = status;
+        }
+      }
       if (expiration_date) {
         token.expiration_date = expiration_date;
         token.expected_pickup_date = new Date(

@@ -26,6 +26,7 @@ class RequestController {
   }
 
   async updateRequest(req, res) {
+    console.log('------------------------------------');
     try {
       const requestId = req.params.id;
       const updateData = req.body;

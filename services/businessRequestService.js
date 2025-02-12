@@ -9,8 +9,10 @@ const businessService = {
   async addBusinessRequest(data) {
     try {
       const { business_name, email, business_certificate_image } = data;
+      console.log(email);
 
       const existingUser = await User.findOne({ where: { email } });
+      console.log(existingUser);
       if (!existingUser) {
         throw new Error("Email not registered. Please sign up first.");
       }

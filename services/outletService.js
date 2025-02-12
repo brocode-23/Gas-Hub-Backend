@@ -109,6 +109,9 @@ const outletService = {
   async getAllOutlets() {
     try {
       return await Outlet.findAll({
+        where: {
+          isDeleted: false,
+        },
         include: [
           {
             model: User,
@@ -129,7 +132,7 @@ const outletService = {
     const { id } = data;
     console.log(id);
 
-    const transaction = await sequelize.transaction(); // Table dekakaka deta delete vena nisa , table dekema data delete wena eka confirm karanna .
+    const transaction = await sequelize.transaction();
 
     try {
       const outlet = await Outlet.findByPk(id, { transaction });
@@ -137,15 +140,16 @@ const outletService = {
         throw new Error("Outlet not found");
       }
 
-      await OutletStock.destroy({ where: { outlet_id: id }, transaction });
+      // Only update the outlet's isDeleted status
+      await outlet.update({ isDeleted: true }, { transaction });
 
-      await outlet.destroy({ transaction }); //Outlet id eka through outlet eka delete karanna .
-
-      await transaction.commit(); // Transaction eka commit karanna .
+      await transaction.commit();
       return { message: "Outlet deleted successfully" };
     } catch (error) {
-      await transaction.rollback(); // Transaction eka rollback karanna .
-      throw new Error("Error while deleting outlet: " + error.message);
+      await transaction.rollback();
+      throw new Error(
+        "Error while marking outlet as deleted: " + error.message
+      );
     } finally {
       if (transaction) {
         await transaction.afterCommit(() => {

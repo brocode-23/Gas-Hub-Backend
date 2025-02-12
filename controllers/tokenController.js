@@ -113,6 +113,8 @@ class TokenController {
 
       const updates = { expiration_date, status };
 
+      console.log(updates);
+
       const updatedToken = await tokenService.updateTokenByCode(
         token_code,
         updates

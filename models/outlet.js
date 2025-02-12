@@ -19,6 +19,7 @@ Outlet.init(
       allowNull: false,
       references: { model: User, key: "id" },
     },
+    isDeleted: { type: DataTypes.BOOLEAN, defaultValue: false },
   },
   { sequelize, modelName: "Outlet", tableName: "outlets" }
 );

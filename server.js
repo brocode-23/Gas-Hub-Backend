@@ -19,7 +19,7 @@ const Payment = require("./models/payment");
 const Analytics = require("./models/Analytics");
 const MonthlyUsage = require("./models/MonthlyUsage");
 const BusinessRequest = require("./models/buisnessRequest");
-
+const contactRoutes = require("./routes/contactRoutes");
 const userRoutes = require("./routes/userRoutes");
 const outletRoutes = require("./routes/outletRoutes");
 const requestRoutes = require("./routes/requestRoutes");
@@ -47,6 +47,7 @@ app.use("/api/token", tokenRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/business-request", businessRequestRoutes);
 app.use("/api/dashboard", dashBoardRoutes);
+app.use("/api/contact", contactRoutes);
 
 sequelize
   .sync({ alter: false })
